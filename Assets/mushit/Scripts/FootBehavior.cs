@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class FootBehavior : MonoBehaviour {
     public bool isInStep = false;
+    GameManager gameManager;
 
     void Start () {
-		
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
 	}
 	
 	void Update () {
@@ -19,12 +20,14 @@ public class FootBehavior : MonoBehaviour {
             isInStep = true;
         }else if (other.tag.Equals("lava") && !isInStep) {
             Debug.Log(gameObject.name + " hit " + other.name);
+            gameManager.OnDeath();
         }
     }
 
     private void OnTriggerStay(Collider other) {
         if (other.tag.Equals("lava") && !isInStep) {
             Debug.Log(gameObject.name + " hit " + other.name);
+            gameManager.OnDeath();
         }
     }
 
