@@ -26,13 +26,19 @@ namespace HKUECT {
 		public bool canFall = false;
 		public bool withAccelleration = false;
 
-		/// <summary>
-		/// Relative rigidbodies will follow along with this object's y-offset when verticalWalking is enabled.
-		/// </summary>
-		/// <remarks>
-		/// This has primarily been used to attach virtual hands to the person wearing the GearVR's.
-		/// </remarks>
-		public List<OptitrackRigidbody> relativeBodies = new List<OptitrackRigidbody>();
+        public bool ApplyX = true;
+        public bool ApplyY = true;
+        public bool ApplyZ = true;
+
+        string mName = "";
+
+        /// <summary>
+        /// Relative rigidbodies will follow along with this object's y-offset when verticalWalking is enabled.
+        /// </summary>
+        /// <remarks>
+        /// This has primarily been used to attach virtual hands to the person wearing the GearVR's.
+        /// </remarks>
+        public List<OptitrackRigidbody> relativeBodies = new List<OptitrackRigidbody>();
 
 		#region private members
 
@@ -68,8 +74,10 @@ namespace HKUECT {
 			handshakeIP = GearData.handShakeIP;
 
 			name = handShakedName;
+            mName = name;
+            rigidbodyName = name;
 
-			deactiveWhenMissing = true;
+            deactiveWhenMissing = true;
 			deactivateWhenUntracked = (name != handShakedName);
 
 			if (verticalWalking) {
@@ -111,11 +119,13 @@ namespace HKUECT {
 					//TODO: figure out if we need to raycast from closer to the floor (so we don't teleport on top of stuff too much)
 					if (Physics.Raycast(objectPosition, -Vector3.up, out hitInfo, 2f, 1 << 8)) {
 						objectPosition.y += (physicalY - hitInfo.distance);
-						t.position = objectPosition;
-						rBody.velocity = Vector3.zero;
+                        //t.position = objectPosition;
+                        SetPosition(objectPosition);
+                        rBody.velocity = Vector3.zero;
 					} else {
-						t.position = objectPosition;
-						if (canFall) {
+                        //t.position = objectPosition;
+                        SetPosition(objectPosition);
+                        if (canFall) {
 							if (withAccelleration) {
 								rBody.AddForce(-Vector3.up * 9.81f, ForceMode.Acceleration);
 							} else {
@@ -139,7 +149,7 @@ namespace HKUECT {
 					#endif
 				} else {
 					//TODO: test
-					t.position = position;
+					SetPosition( position );
 					#if UNITY_EDITOR
 					t.rotation = rotation;
 					#endif
@@ -169,6 +179,21 @@ namespace HKUECT {
 		#endregion
 
 		#region private methods
+        void SetPosition(Vector3 pos) {
+            if (!ApplyX) pos.x = t.position.x;
+            if (!ApplyY) pos.y = t.position.y;
+            if (!ApplyZ) pos.z = t.position.z;
+
+            t.position = pos;
+            //if (ApplyX)
+            //    t.position.Set(pos.x, t.position.y, t.position.z);
+            //if (ApplyY)
+            //    t.position.Set(t.position.x, pos.y, t.position.z);
+            //if (ApplyZ)
+            //    t.position.Set(t.position.x, t.position.y, pos.z);
+                
+        }
+
 
 		void HandleMessage(OSCMessage msg) {
 			switch (msg.Address) {
@@ -183,7 +208,7 @@ namespace HKUECT {
 			int index = 0;
 			string incomingName = (string)data [index++];
 
-			if (name == incomingName) {
+			if (mName == incomingName) {
 				float x = (float)data [index++];
 				float y = (float)data [index++];
 				float z = (float)data [index++];

@@ -5,9 +5,11 @@ using UnityEngine;
 public class FootBehavior : MonoBehaviour {
     public bool isInStep = false;
     GameManager gameManager;
+    new Rigidbody rigidbody;
 
     void Start () {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        rigidbody = gameObject.GetComponentInParent<Rigidbody>();
 	}
 	
 	void Update () {
@@ -21,6 +23,7 @@ public class FootBehavior : MonoBehaviour {
         }else if (other.tag.Equals("lava") && !isInStep) {
             Debug.Log(gameObject.name + " hit " + other.name);
             gameManager.OnDeath();
+            rigidbody.isKinematic = false;
         }
     }
 
@@ -28,6 +31,7 @@ public class FootBehavior : MonoBehaviour {
         if (other.tag.Equals("lava") && !isInStep) {
             Debug.Log(gameObject.name + " hit " + other.name);
             gameManager.OnDeath();
+            rigidbody.isKinematic = false;
         }
     }
 
