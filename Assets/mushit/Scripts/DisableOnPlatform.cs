@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Utility behaviour to make a object disapear when building for a certain platform
+/// Currently supports android and editor toggles.
+/// </summary>
 public class DisableOnPlatform : MonoBehaviour {
     public bool android = false;
     public bool editor = false;
 
-	// Use this for initialization
 	void Start () {
 #if UNITY_ANDROID
         if (android) enabled = false;
@@ -15,9 +18,4 @@ public class DisableOnPlatform : MonoBehaviour {
         if (editor) enabled = false;
 #endif
     }
-
-    // Update is called once per frame
-    void Update () {
-		
-	}
 }

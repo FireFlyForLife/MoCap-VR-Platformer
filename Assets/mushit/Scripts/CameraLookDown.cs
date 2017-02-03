@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// Unused class intended for when you die to let you face the lava
+/// does not function
+/// </summary>
 public class CameraLookDown : MonoBehaviour {
     public new Camera camera = null;
     public bool lookDown = false;

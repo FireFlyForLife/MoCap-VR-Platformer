@@ -4,6 +4,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using HKUECT;
 
+/// <summary>
+/// Central game manager used for effects when the player needs to fall down.
+/// </summary>
 public class GameManager : MonoBehaviour {
     public float speed = 2;
     public float maxHeight = 8;
@@ -11,38 +14,38 @@ public class GameManager : MonoBehaviour {
     public bool canFall = true;
     private GameObject[] lavas;
     private GameObject[] foots;
-    private GameObject mainCamera;
     private OptiTrackOSCGearVR gearVRTracker;
     public Rigidbody targetRigidbody;
 
-	// Use this for initialization
 	void Start () {
-        lavas = GameObject.FindGameObjectsWithTag("lava");
-        foots = GameObject.FindGameObjectsWithTag("foot");
-        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        gearVRTracker = GameObject.Find("GearVRTracker").GetComponent<OptiTrackOSCGearVR>();
+        lavas = GameObject.FindGameObjectsWithTag("lava"); //for if the lava needs to rise
+        foots = GameObject.FindGameObjectsWithTag("foot"); //the foot should fall down as well (though not currently)
+        gearVRTracker = GameObject.Find("GearVRTracker").GetComponent<OptiTrackOSCGearVR>(); //OptiTrackOSCGearVR reference for letting the camera fall down
     }
 	
-	// Update is called once per frame
 	void Update () {
+        // when the foot off the platform and in the lava collider, do all the dying effects
         if (canFall && inLava) {
             //MoveLavaUp();
             FallDown();
         }
 
+        //to be able to reset when you fall in the lava you can tap on the gearvr to reset to the handshake scene.
         if (Input.GetButton("Tap")) {
             SceneManager.LoadScene(0);
         }
     }
 
+    //to fall down we set the gearVRTracker's canFall properties to true
     void FallDown() {
         targetRigidbody.isKinematic = false;
         targetRigidbody.useGravity = true;
-        //mainCamera.transform.SetParent(null);
+
         gearVRTracker.canFall = true;
         gearVRTracker.ApplyY = false;
     }
 
+    //currently unused, makes the lava rise on death
     void MoveLavaUp() {
         foreach (GameObject lava in lavas) {
             if (lava.transform.position.y < maxHeight)
@@ -52,6 +55,5 @@ public class GameManager : MonoBehaviour {
 
     public void OnDeath() {
         inLava = true;
-        //Camera.main.transform.parent = null;
     }
 }

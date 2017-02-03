@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using HKUECT;
 
+/// <summary>
+/// intended to be able to make the vr player fall down, turns out that can be done with OptiTrackerOSCGearVR#canFall
+/// </summary>
 public class InteruptableGearVR : OptiTrackOSCGearVR {
     public bool ApplyX { get; set; }
     public bool ApplyY { get; set; }
