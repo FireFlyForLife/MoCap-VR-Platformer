@@ -26,6 +26,7 @@ namespace HKUECT {
 		public bool canFall = false;
 		public bool withAccelleration = false;
 
+        //used to disable certain positional axis'.
         public bool ApplyX = true;
         public bool ApplyY = true;
         public bool ApplyZ = true;
@@ -179,19 +180,14 @@ namespace HKUECT {
 		#endregion
 
 		#region private methods
+
+        //set the position based on the ApplyX, ApplyZ and ApplyY values
         void SetPosition(Vector3 pos) {
             if (!ApplyX) pos.x = t.position.x;
             if (!ApplyY) pos.y = t.position.y;
             if (!ApplyZ) pos.z = t.position.z;
 
             t.position = pos;
-            //if (ApplyX)
-            //    t.position.Set(pos.x, t.position.y, t.position.z);
-            //if (ApplyY)
-            //    t.position.Set(t.position.x, pos.y, t.position.z);
-            //if (ApplyZ)
-            //    t.position.Set(t.position.x, t.position.y, pos.z);
-                
         }
 
 
