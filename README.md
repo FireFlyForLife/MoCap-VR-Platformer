@@ -3,7 +3,8 @@
 ## What is it?
   This is a platforming game made possible with MoCap and gearVR technologies.
   Our video can be found here:
-  //TODO: Add video
+  
+  [![Link to the video](http://img.youtube.com/vi/ScMzIvxBSi4/0.jpg)](https://www.youtube.com/watch?v=ScMzIvxBSi4)
 
 ## Building
   For the basic setup of OSC with MoCap and gearVR look at the instructions from [this library](https://github.com/hku-ect/UnityOSCToolkit)
