@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using HKUECT;
 
 public class GameManager : MonoBehaviour {
@@ -27,6 +28,10 @@ public class GameManager : MonoBehaviour {
         if (canFall && inLava) {
             //MoveLavaUp();
             FallDown();
+        }
+
+        if (Input.GetButton("Tap")) {
+            SceneManager.LoadScene(0);
         }
     }
 

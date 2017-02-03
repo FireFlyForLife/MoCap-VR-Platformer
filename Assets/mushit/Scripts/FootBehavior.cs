@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class FootBehavior : MonoBehaviour {
     public bool isInStep = false;
+    public bool isInLava = false;
     GameManager gameManager;
     new Rigidbody rigidbody;
 
@@ -13,32 +14,35 @@ public class FootBehavior : MonoBehaviour {
 	}
 	
 	void Update () {
-        
+        if(!isInStep && isInLava) {
+            gameManager.OnDeath();
+            rigidbody.isKinematic = false;
+        }
     }
     
     private void OnTriggerEnter(Collider other) {
         if (other.tag.Equals("step")) {
             Debug.Log(gameObject.name + " hit " + other.transform.parent.name);
             isInStep = true;
-        }else if (other.tag.Equals("lava") && !isInStep) {
+        }else if (other.tag.Equals("lava")) {
             Debug.Log(gameObject.name + " hit " + other.name);
-            gameManager.OnDeath();
-            rigidbody.isKinematic = false;
+            isInLava = true;
         }
     }
 
     private void OnTriggerStay(Collider other) {
-        if (other.tag.Equals("lava") && !isInStep) {
-            Debug.Log(gameObject.name + " hit " + other.name);
-            gameManager.OnDeath();
-            rigidbody.isKinematic = false;
-        }
+        //if (other.tag.Equals("lava")) {
+        //    Debug.Log(gameObject.name + " hit " + other.name);
+        //    isInLava = true;
+        //}
     }
 
     private void OnTriggerExit(Collider other) {
         if (other.tag.Equals("step")) {
             Debug.Log(gameObject.name + " out of " + other.name);
             isInStep = false;
+        }else if (other.tag.Equals("lava")) {
+            isInLava = false;
         }
     }
 }
