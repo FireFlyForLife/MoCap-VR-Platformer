@@ -9,7 +9,7 @@
   For the basic setup of OSC with MoCap and gearVR look at the instructions from [this library](https://github.com/hku-ect/UnityOSCToolkit)
   After that you make a new project and paste the files in the root folder of your project.
 
-  To be able to play you should launch you need to build with the handshake scene (located at: Assets/UnityOSC-Toolkit/Examples/handshake-     scene.unity)
+  To be able to play you should launch you need to build with the handshake scene (located at: Assets/UnityOSC-Toolkit/Examples/handshake-     scene.unity) as the first scene.
 
 ## Creators
   This project was made by:
