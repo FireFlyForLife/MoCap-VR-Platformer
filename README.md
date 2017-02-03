@@ -6,14 +6,14 @@
   //TODO: Add video
 
 ## Building
-  For the basic setup of MoCap and gearVR look at the instructions from [this library](https://github.com/hku-ect/UnityOSCToolkit)
+  For the basic setup of OSC with MoCap and gearVR look at the instructions from [this library](https://github.com/hku-ect/UnityOSCToolkit)
   After that you make a new project and paste the files in the root folder of your project.
 
-  To be able to play you should launch you need to build with the handshake scene (location: Assets/UnityOSC-Toolkit/Examples/handshake-     scene.unity)
+  To be able to play you should launch you need to build with the handshake scene (located at: Assets/UnityOSC-Toolkit/Examples/handshake-     scene.unity)
 
 ## Creators
   This project was made by:
   * Maiko   (Game Developer)
   * Jelle   (Game Developer)
-  * Nadine  (Interaction Design) 
-  * Tessa   (Fashion Design) 
+  * Nadine  (Interaction Designer) 
+  * Tessa   (Fashion Designer) 
